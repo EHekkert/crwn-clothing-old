@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithRedirect,
+  signInWithPopup,
   GoogleAuthProvider,
   OAuthProvider,
   createUserWithEmailAndPassword,
@@ -36,8 +36,8 @@ microsoftProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
-export const signInWithMicrosoftRedirect = () => signInWithRedirect(auth, microsoftProvider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const signInWithMicrosoftPopup = () => signInWithPopup(auth, microsoftProvider);
 
 export const db = getFirestore();
 

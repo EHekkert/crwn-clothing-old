@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { getRedirectResult } from 'firebase/auth';
 
+import FormInput from '../FormInput';
+import Button from '../Button';
+
 import {
         auth,
-        signInWithGoogleRedirect,
-        signInWithMicrosoftRedirect,     
+        signInWithGooglePopup,
+        signInWithMicrosoftPopup,     
         createUserDocumentFromAuth,
         signInAuthUserWithEmailAndPassword
     } from '../../utils/Firebase';
 
-import FormInput from '../FormInput';
-import Button from '../Button';
-
-import './index.scss';
+import './index.scss'; 
 
 const defaultFormFields = {
     email: '',
@@ -26,6 +26,18 @@ const SignInForm = () => {
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
+    };
+
+    const signInWithGoogle = async () => {
+        const { user } = await signInWithGooglePopup();
+        console.log(user);
+        await createUserDocumentFromAuth(user);
+    };
+
+    const signInWithMicrosoft = async () => {
+        const { user } = await signInWithMicrosoftPopup();
+        console.log(user);
+        await createUserDocumentFromAuth(user);
     };
 
     const handleSubmit = async (event) => {
@@ -55,18 +67,6 @@ const SignInForm = () => {
         setFormFields({...formFields, [name]: value})
     };
 
-    useEffect(() => {
-        const redirectResult = async () => {
-            const response = await getRedirectResult(auth);
-            if (response)
-            {
-                console.log(response);
-                const userDocRef = await createUserDocumentFromAuth(response.user);
-            }
-        }
-        redirectResult().catch(console.error);
-    }, []);
-
     return (
         <div className='sign-in-container'>
             <h2>Already have an account?</h2>
@@ -94,10 +94,10 @@ const SignInForm = () => {
                 />
                 <div className='buttons-container'>
                 <Button type='submit'>Sign In</Button>                
-                <Button type='button' buttonType='google' onClick={signInWithGoogleRedirect}>
+                <Button type='button' buttonType='google' onClick={signInWithGoogle}>
                     Google Sign In
                 </Button>
-                <Button type='button' buttonType='microsoft' onClick={signInWithMicrosoftRedirect}>
+                <Button type='button' buttonType='microsoft' onClick={signInWithMicrosoft}>
                     TAUW Sign In
                 </Button>
                 </div>
