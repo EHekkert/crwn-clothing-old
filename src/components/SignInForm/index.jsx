@@ -1,11 +1,7 @@
-import { useState, useContext } from 'react';
-import { useEffect } from 'react';
-import { getRedirectResult } from 'firebase/auth';
+import { useState } from 'react';
 
 import FormInput from '../FormInput';
 import Button from '../Button';
-
-import { UserContext } from '../../contexts/user.context';
 
 import {
         auth,
@@ -26,30 +22,23 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
-    const { setCurrentUser } = useContext(UserContext);
-
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
     };
 
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
-        setCurrentUser(user);
+        await signInWithGooglePopup();        
     };
 
     const signInWithMicrosoft = async () => {
-        const { user } = await signInWithMicrosoftPopup();
-        await createUserDocumentFromAuth(user);
-        setCurrentUser(user);
+        await signInWithMicrosoftPopup();
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         
          try{
-            const { user } = await signInAuthUserWithEmailAndPassword(email, password);            
-            setCurrentUser(user);
+            await signInAuthUserWithEmailAndPassword(email, password);
 
             resetFormFields();
          } catch (error) {
