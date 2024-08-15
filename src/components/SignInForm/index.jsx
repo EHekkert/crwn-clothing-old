@@ -4,14 +4,12 @@ import FormInput from '../FormInput';
 import Button from '../Button';
 
 import {
-        auth,
         signInWithGooglePopup,
-        signInWithMicrosoftPopup,     
-        createUserDocumentFromAuth,
+        signInWithMicrosoftPopup,
         signInAuthUserWithEmailAndPassword
     } from '../../utils/Firebase';
 
-import './index.scss'; 
+import { SignInContainer, ButtonsContainer } from './styles.jsx'; 
 
 const defaultFormFields = {
     email: '',
@@ -44,7 +42,7 @@ const SignInForm = () => {
          } catch (error) {
             switch(error.code)
             {
-                case 'auth/wrong-password':
+                case 'auth/user-not-found':
                 case 'auth/wrong-password':
                     alert('E-mail unknown or password is incorrect.')
                     break;
@@ -61,7 +59,7 @@ const SignInForm = () => {
     };
 
     return (
-        <div className='sign-in-container'>
+        <SignInContainer>
             <h2>Already have an account?</h2>
             <span>Sign in with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -85,17 +83,17 @@ const SignInForm = () => {
                         value: password
                     }}
                 />
-                <div className='buttons-container'>
-                <Button type='submit'>Sign In</Button>                
-                <Button type='button' buttonType='google' onClick={signInWithGoogle}>
-                    Google Sign In
-                </Button>
-                <Button type='button' buttonType='microsoft' onClick={signInWithMicrosoft}>
-                    TAUW Sign In
-                </Button>
-                </div>
+                <ButtonsContainer>
+                    <Button type='submit'>Sign In</Button>                
+                    <Button type='button' buttonType='google' onClick={signInWithGoogle}>
+                        Google Sign In
+                    </Button>
+                    <Button type='button' buttonType='microsoft' onClick={signInWithMicrosoft}>
+                        TAUW Sign In
+                    </Button>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     );
 };
 
