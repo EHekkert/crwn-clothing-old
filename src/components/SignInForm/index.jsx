@@ -25,11 +25,35 @@ const SignInForm = () => {
     };
 
     const signInWithGoogle = async () => {
-        await signInWithGooglePopup();        
+        try
+        {
+            await signInWithGooglePopup();
+        } catch (error) {
+            switch(error.code)
+            {                
+                case 'auth/cancelled-popup-request':
+                case 'auth/popup-closed-by-user':
+                    break;
+                default:
+                    console.log(error);
+            }
+        }
     };
 
     const signInWithMicrosoft = async () => {
-        await signInWithMicrosoftPopup();
+        try
+        {
+            await signInWithMicrosoftPopup();
+        } catch (error) {
+            switch(error.code)
+            {                
+                case 'auth/cancelled-popup-request':
+                case 'auth/popup-closed-by-user':
+                    break;
+                default:
+                    console.log(error);
+            }
+        }
     };
 
     const handleSubmit = async (event) => {
