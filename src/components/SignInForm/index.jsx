@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import { useEffect } from 'react';
-import { getRedirectResult } from 'firebase/auth';
 
 import FormInput from '../FormInput';
-import Button from '../Button';
+import Button, { BUTTON_TYPE_CLASSES } from '../Button';
 
 import {
-        auth,
         signInWithGooglePopup,
-        signInWithMicrosoftPopup,     
-        createUserDocumentFromAuth,
+        signInWithMicrosoftPopup,
         signInAuthUserWithEmailAndPassword
     } from '../../utils/Firebase';
 
-import './index.scss'; 
+import { SignInContainer, ButtonsContainer } from './styles'; 
 
 const defaultFormFields = {
     email: '',
@@ -29,29 +25,48 @@ const SignInForm = () => {
     };
 
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        console.log(user);
-        await createUserDocumentFromAuth(user);
+        try
+        {
+            await signInWithGooglePopup();
+        } catch (error) {
+            switch(error.code)
+            {                
+                case 'auth/cancelled-popup-request':
+                case 'auth/popup-closed-by-user':
+                    break;
+                default:
+                    console.log(error);
+            }
+        }
     };
 
     const signInWithMicrosoft = async () => {
-        const { user } = await signInWithMicrosoftPopup();
-        console.log(user);
-        await createUserDocumentFromAuth(user);
+        try
+        {
+            await signInWithMicrosoftPopup();
+        } catch (error) {
+            switch(error.code)
+            {                
+                case 'auth/cancelled-popup-request':
+                case 'auth/popup-closed-by-user':
+                    break;
+                default:
+                    console.log(error);
+            }
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         
          try{
-            const response = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log(response);
+            await signInAuthUserWithEmailAndPassword(email, password);
 
             resetFormFields();
          } catch (error) {
             switch(error.code)
             {
-                case 'auth/wrong-password':
+                case 'auth/user-not-found':
                 case 'auth/wrong-password':
                     alert('E-mail unknown or password is incorrect.')
                     break;
@@ -68,7 +83,7 @@ const SignInForm = () => {
     };
 
     return (
-        <div className='sign-in-container'>
+        <SignInContainer>
             <h2>Already have an account?</h2>
             <span>Sign in with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -92,17 +107,17 @@ const SignInForm = () => {
                         value: password
                     }}
                 />
-                <div className='buttons-container'>
-                <Button type='submit'>Sign In</Button>                
-                <Button type='button' buttonType='google' onClick={signInWithGoogle}>
-                    Google Sign In
-                </Button>
-                <Button type='button' buttonType='microsoft' onClick={signInWithMicrosoft}>
-                    TAUW Sign In
-                </Button>
-                </div>
+                <ButtonsContainer>
+                    <Button type='submit'>Sign In</Button>                
+                    <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
+                        Google Sign In
+                    </Button>
+                    <Button type='button' buttonType={BUTTON_TYPE_CLASSES.tauw} onClick={signInWithMicrosoft}>
+                        TAUW Sign In
+                    </Button>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     );
 };
 
