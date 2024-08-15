@@ -10,7 +10,7 @@ import { CartContext } from '../../contexts/cart.context';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/Firebase';
 
-import { NavigationContainer, LogoContainer, NavLinks, NavLink } from './style.jsx';
+import { NavigationContainer, LogoContainer, NavLinks, NavLink } from './style';
 
 const Navigation = () => {
     const { currentUser } = useContext(UserContext);

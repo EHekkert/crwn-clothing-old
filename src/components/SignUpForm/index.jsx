@@ -5,7 +5,7 @@ import Button from '../Button';
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/Firebase';
 
-import { SignUpContainer } from './styles.jsx';
+import { SignUpContainer } from './styles';
 
 const defaultFormFields = {
     displayName: '',

@@ -5,7 +5,7 @@ import ProductCard from '../../components/ProductCard';
 
 import { CategoriesContext } from '../../contexts/categories.context';
 
-import { CategoryContainer, Title } from './styles.jsx';
+import { CategoryContainer, Title } from './styles';
 
 const Category = () => {
     const { category } = useParams();

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import FormInput from '../FormInput';
-import Button from '../Button';
+import Button, { BUTTON_TYPE_CLASSES } from '../Button';
 
 import {
         signInWithGooglePopup,
@@ -9,7 +9,7 @@ import {
         signInAuthUserWithEmailAndPassword
     } from '../../utils/Firebase';
 
-import { SignInContainer, ButtonsContainer } from './styles.jsx'; 
+import { SignInContainer, ButtonsContainer } from './styles'; 
 
 const defaultFormFields = {
     email: '',
@@ -85,10 +85,10 @@ const SignInForm = () => {
                 />
                 <ButtonsContainer>
                     <Button type='submit'>Sign In</Button>                
-                    <Button type='button' buttonType='google' onClick={signInWithGoogle}>
+                    <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
                         Google Sign In
                     </Button>
-                    <Button type='button' buttonType='microsoft' onClick={signInWithMicrosoft}>
+                    <Button type='button' buttonType={BUTTON_TYPE_CLASSES.tauw} onClick={signInWithMicrosoft}>
                         TAUW Sign In
                     </Button>
                 </ButtonsContainer>
