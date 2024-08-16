@@ -36,15 +36,15 @@ const categories = [
   ];
 
 const Directory = () => {
-    return (
-        <DirectoryContainer>
-            {categories.map((category) => {
-                return (
-                    <DirectoryItem key={category.id} category={category} />
-                )
-            })}
-        </DirectoryContainer>
-    )
+  return (
+    <DirectoryContainer>
+      {categories.map((category) => {
+        return (
+          <DirectoryItem key={category.id} category={category} />
+        )
+      })}
+    </DirectoryContainer>
+  )
 }
 
 export default Directory;
