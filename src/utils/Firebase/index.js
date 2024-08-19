@@ -53,7 +53,7 @@ export const signInWithMicrosoftPopup = () => signInWithPopup(auth, microsoftPro
 export const db = getFirestore();
 
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
-  console.log('start');
+  //console.log('start');
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
 
@@ -63,7 +63,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   });
 
   await batch.commit();
-  console.log('done');
+  //console.log('done');
 };
 
 export const getCategoriesAndDocuments = async () => {

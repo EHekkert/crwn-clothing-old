@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import CartIcon from '../../components/CartIcon';
 import CardDropdown from '../../components/CardDropdown';
 
-import { CartContext } from '../../contexts/cart.context';
+import { selectIsCartOpen } from '../../store/cart/cartSelector';
 import { selectCurrentUser } from '../../store/user/userSelector';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
@@ -15,7 +15,7 @@ import { NavigationContainer, LogoContainer, NavLinks, NavLink } from './style';
 
 const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
-    const { isCartOpen } = useContext(CartContext);
+    const isCartOpen = useSelector(selectIsCartOpen);
     
     return (
       <Fragment>
