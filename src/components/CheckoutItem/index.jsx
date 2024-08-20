@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { CheckoutItemContainer, ImageContainer, BaseSpan, Quantity, Arrow, Value, RemoveButton } from './styles.jsx';

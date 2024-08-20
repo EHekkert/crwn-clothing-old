@@ -1,4 +1,3 @@
-import { QueryCompositeFilterConstraint } from 'firebase/firestore/lite';
 import { CART_ACTION_TYPES } from './cartTypes';
 
 export const CART_INITIAL_STATE = {

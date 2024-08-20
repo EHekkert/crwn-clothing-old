@@ -4,9 +4,16 @@ const selectCategoryReducer = (state) => {
     return state.categories;
 };
 
-export const selectCategories= createSelector(
+export const selectCategoriesIsLoading = createSelector(
     [selectCategoryReducer],
-    (categoriesSlice) =>{
+    (categoriesSlice) => {
+        return categoriesSlice.isLoading;
+    }
+)
+
+export const selectCategories = createSelector(
+    [selectCategoryReducer],
+    (categoriesSlice) => {
         return categoriesSlice.categories;
     }
 )
