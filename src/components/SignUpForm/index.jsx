@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux';
 import FormInput from '../FormInput';
 import Button from '../Button';
 
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/Firebase';
-
 import { SignUpContainer } from './styles';
 import { signUpStart } from '../../store/user/userAction';
 
