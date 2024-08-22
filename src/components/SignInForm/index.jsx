@@ -1,13 +1,9 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { googleSignInStart, tauwSignInStart, eMailSignInStart } from '../../store/user/userAction';
 
 import FormInput from '../FormInput';
 import Button, { BUTTON_TYPE_CLASSES } from '../Button';
-
-import {
-        signInWithGooglePopup,
-        signInWithMicrosoftPopup,
-        signInAuthUserWithEmailAndPassword
-    } from '../../utils/Firebase';
 
 import { SignInContainer, ButtonsContainer } from './styles'; 
 
@@ -17,6 +13,7 @@ const defaultFormFields = {
 }
 
 const SignInForm = () => {
+    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
@@ -25,43 +22,18 @@ const SignInForm = () => {
     };
 
     const signInWithGoogle = async () => {
-        try
-        {
-            await signInWithGooglePopup();
-        } catch (error) {
-            switch(error.code)
-            {                
-                case 'auth/cancelled-popup-request':
-                case 'auth/popup-closed-by-user':
-                    break;
-                default:
-                    console.log(error);
-            }
-        }
+        dispatch(googleSignInStart());
     };
 
     const signInWithMicrosoft = async () => {
-        try
-        {
-            await signInWithMicrosoftPopup();
-        } catch (error) {
-            switch(error.code)
-            {                
-                case 'auth/cancelled-popup-request':
-                case 'auth/popup-closed-by-user':
-                    break;
-                default:
-                    console.log(error);
-            }
-        }
+        dispatch(tauwSignInStart());
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         
          try{
-            await signInAuthUserWithEmailAndPassword(email, password);
-
+            dispatch(eMailSignInStart(email, password));
             resetFormFields();
          } catch (error) {
             switch(error.code)
